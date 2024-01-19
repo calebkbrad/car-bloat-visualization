@@ -1,0 +1,102 @@
+{
+    "data": {"values": data},
+    "title": {
+        "text": "Since the 1980s, automakers have been consistently producing larger vehicle fleets",
+        "anchor": "start",
+        "fontSize": 22,
+        "offset": 25,
+        "subtitle": "Smaller car type models like sedans, which used to domniate the market, are being produced far less in favor of larger truck type models, especially Truck SUVs",
+        
+    },
+    "width": 950,
+    "height": 625,
+    "transform": [
+        {"filter": " datum.VehicleType == 'Sedan/Wagon' || datum.VehicleType == 'Car SUV' || datum.VehicleType == 'Minivan/Van' || datum.VehicleType == 'Pickup' || datum.VehicleType == 'Truck SUV' "},
+        {"filter": "datum.ModelYear >= 1980 && datum.ModelYear <= 2020"},
+        {
+        "calculate": "if (datum.VehicleType == 'Sedan/Wagon', 1, if(datum.VehicleType == 'Truck SUV', 3, if(datum.VehicleType == 'Pickup', 5, if(datum.VehicleType == 'Minivan/Van', 4, if(datum.VehicleType == 'Car SUV', 2, 0)))))",
+        "as": "order"
+        },
+        {
+        "calculate": "100 * datum.ProductionShare",
+        "as": "% of Production Share"
+        }
+    ],
+    "encoding": {
+        "x": {"field": "ModelYear", "type": "quantitative", "axis": {"format": "0000"}, "title": "Fleet Model Year"},
+        "y": {"field": "% of Production Share", "type": "quantitative", "scale": {"domain": [0,100]}},
+        "color": {"field": "VehicleType", "scale": {"scheme": "tableau10"}, "legend": null},
+        "order": {"field": "order"}
+    },
+    "layer":[
+        {
+        "mark": "area",
+        },
+        {
+        "mark": {"type": "text", "align": "left", "fontWeight": "bold"},
+        "encoding": {
+        "text": {"value": "Minivans/Vans"},
+        "x": {"value": 960},
+        "y": {"value": 100}, 
+        "color": {"value": "#e49444"}
+        }
+        },
+        {
+        "mark": {"type": "text", "align": "left", "fontWeight": "bold"},
+        "encoding": {
+            "text": {"value": "Car (smaller) SUVs"},
+            "x": {"value": 960},
+            "y": {"value": 385},
+            "color": {"value": "#5778a4"}
+            }
+        },
+        {
+        "mark": {"type": "text", "align": "left", "fontWeight": "bold"},
+        "encoding": {
+            "text": {"value": "Pickup Trucks"},
+            "x": {"value": 960},
+            "y": {"value": 40},
+            "color": {"value": "#d1615d"}
+            }
+        },
+        {
+        "mark": {"type": "text", "align": "left", "fontWeight": "bold"},
+        "encoding": {
+            "text": {"value": "Sedans/Wagons"},
+            "x": {"value": 960},  
+            "y": {"value": 525},
+            "color": {"value": "#85b6b2"}
+            }
+        },
+        {
+        "mark": {"type": "text", "align": "left", "fontWeight": "bold"},
+        "encoding": {
+            "text": {"value": "Truck (larger) SUVs"},
+            "x": {"value": 960},
+            "y": {"value": 200},
+            "color": {"value": "#6a9f58"}
+            }
+        },
+        {
+        "mark": {"type": "text", "align": "left", "fontWeight": "bold", "fontSize": 13},
+        "encoding": {
+            "text": {"value": "Truck type vehicles"},
+            "x": {"value": 960},
+            "y": {"value": 0},
+            "color": {"value": "black"}
+            }
+        },
+        {
+        "mark": {"type": "text", "align": "left", "fontWeight": "bold", "fontSize": 13},
+        "encoding": {
+            "text": {"value": "Car type vehicles"},
+            "x": {"value": 960},
+            "y": {"value": 350},
+            "color": {"value": "black"}
+            }
+        },
+    ]
+
+        
+
+    }
